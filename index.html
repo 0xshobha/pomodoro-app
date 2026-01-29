@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus | Pomodoro Timer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Focus</h1>
+        </header>
+
+        <div class="timer-container">
+            <div class="progress-ring">
+                <svg class="progress-ring__circle" width="300" height="300">
+                    <circle class="progress-ring__background" stroke="currentColor" stroke-width="8" fill="transparent"
+                        r="140" cx="150" cy="150" />
+                    <circle class="progress-ring__bar" stroke="currentColor" stroke-width="8" fill="transparent" r="140"
+                        cx="150" cy="150" />
+                </svg>
+                <div class="timer-display">
+                    <span id="time-display">25:00</span>
+                    <span id="mode-display">Focus Time</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="btn-start" class="btn btn-primary">Start</button>
+            <button id="btn-pause" class="btn btn-secondary hidden">Pause</button>
+            <button id="btn-reset" class="btn btn-tertiary">Reset</button>
+        </div>
+
+        <div class="mode-selector">
+            <button class="mode-btn active" data-mode="pomodoro">Focus</button>
+            <button class="mode-btn" data-mode="shortBreak">Short Break</button>
+            <button class="mode-btn" data-mode="longBreak">Long Break</button>
+        </div>
+
+        <div class="session-info">
+            <p>Sessions completed: <span id="session-count">0</span></p>
+        </div>
+
+        <div class="task-section">
+            <h2>Tasks</h2>
+            <div class="task-input-group">
+                <input type="text" id="task-input" placeholder="What are you working on?">
+                <button id="add-task-btn">+</button>
+            </div>
+            <ul id="task-list" class="task-list">
+                <!-- Tasks will be added here -->
+            </ul>
+        </div>
+
+        <button id="settings-toggle" class="settings-btn" aria-label="Settings">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path
+                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                </path>
+            </svg>
+        </button>
+    </div>
+
+    <div id="settings-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button id="close-settings" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label>Timer (minutes)</label>
+                    <div class="input-row">
+                        <div class="input-wrapper">
+                            <label for="pomodoro-time">Focus</label>
+                            <input type="number" id="pomodoro-time" value="25" min="1" max="60">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="short-break-time">Short Break</label>
+                            <input type="number" id="short-break-time" value="5" min="1" max="30">
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="long-break-time">Long Break</label>
+                            <input type="number" id="long-break-time" value="15" min="1" max="60">
+                        </div>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <label>Sound</label>
+                    <div class="toggle-row">
+                        <span>Alarm Sound</span>
+                        <label class="switch">
+                            <input type="checkbox" id="alarm-toggle" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-row">
+                        <span>Ticking Sound</span>
+                        <label class="switch">
+                            <input type="checkbox" id="ticking-toggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
